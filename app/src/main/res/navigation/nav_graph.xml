@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/notlarFragment">
+
+    <fragment
+        android:id="@+id/notlarFragment"
+        android:name="com.example.notdefteri.view.NotlarFragment"
+        android:label="Notlarım"
+        tools:layout="@layout/fragment_notlar">
+        <action
+            android:id="@+id/actionNotlarFragmentToNotFragment"
+            app:destination="@id/notFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notFragment"
+        android:name="com.example.notdefteri.view.NotFragment"
+        android:label="Not"
+        tools:layout="@layout/fragment_not">
+        <action
+            android:id="@+id/actionNotFragmentToNotlarFragment"
+            app:destination="@id/notlarFragment" />
+        <argument
+            android:name="bilgi"
+            app:argType="string"
+            android:defaultValue="default" />
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+
+</navigation>
