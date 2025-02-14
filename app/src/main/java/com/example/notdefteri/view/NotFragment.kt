@@ -167,8 +167,8 @@ class NotFragment : Fragment() {
                 compressedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream)
                 val byteDizisi = outputStream.toByteArray()
 
-                if (byteDizisi.size > 8 * 1024 * 1024) { // 7MB kontrol sınırı
-                    Toast.makeText(requireContext(), "Resim boyutu çok büyük (Maksimum 5MB)", Toast.LENGTH_LONG).show()
+                if (byteDizisi.size > 8 * 1024 * 1024) { // 8MB kontrol sınırı
+                    Toast.makeText(requireContext(), "Resim boyutu çok büyük (Maksimum 8MB)", Toast.LENGTH_LONG).show()
                     return
                 }
 
@@ -253,8 +253,8 @@ class NotFragment : Fragment() {
 
                         // Resmin boyutunu kontrol et
                         val fileSize = getFileSize(uri)
-                        if (fileSize > 8 * 1024 * 1024) { // 5MB üstü
-                            Toast.makeText(requireContext(), "Resim boyutu çok büyük (Maksimum 5MB)", Toast.LENGTH_LONG).show()
+                        if (fileSize > 8 * 1024 * 1024) { // 8MB üstü
+                            Toast.makeText(requireContext(), "Resim boyutu çok büyük (Maksimum 8MB)", Toast.LENGTH_LONG).show()
                             return@let
                         }
                         
