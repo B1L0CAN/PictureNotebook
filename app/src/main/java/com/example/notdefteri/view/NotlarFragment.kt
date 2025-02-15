@@ -1,5 +1,9 @@
 package com.example.notdefteri.view
 
+import android.app.AlertDialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,6 +22,9 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
+import android.view.WindowManager
+import com.google.android.material.button.MaterialButton
 
 class NotlarFragment : Fragment() {
 
@@ -32,6 +39,38 @@ class NotlarFragment : Fragment() {
         
         db = Room.databaseBuilder(requireContext(), NotlarDatabase::class.java, "Notlar")
             .build()
+            
+        // Hoş geldiniz mesajını göster
+        val sharedPref = requireActivity().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        val isFirstRun = sharedPref.getBoolean("isFirstRun", true)
+        
+        if (isFirstRun) {
+            val builder = AlertDialog.Builder(requireContext())
+            val customView = LayoutInflater.from(requireContext()).inflate(com.example.notdefteri.R.layout.dialog_hosgeldiniz, null)
+            builder.setView(customView)
+            
+            val dialog = builder.create()
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            
+            // Dialog'un dışına tıklandığında kapanmasını engelle
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.setCancelable(false)
+            
+            // Anladım butonunu bul ve tıklama olayını ayarla
+            customView.findViewById<MaterialButton>(com.example.notdefteri.R.id.anladimButton).setOnClickListener {
+                sharedPref.edit().putBoolean("isFirstRun", false).apply()
+                dialog.dismiss()
+            }
+            
+            dialog.show()
+            
+            // Dialog'u ortala ve genişliğini ayarla
+            val window = dialog.window
+            val params = window?.attributes
+            params?.gravity = Gravity.CENTER
+            params?.width = (resources.displayMetrics.widthPixels * 0.9).toInt()
+            window?.attributes = params
+        }
     }
 
     override fun onCreateView(
