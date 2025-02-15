@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.notdefteri'
+    namespace 'com.bilocan.notdefteri'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.notdefteri"
+        applicationId "com.bilocan.notdefteri"
         minSdk 24
         targetSdk 34
         versionCode 1

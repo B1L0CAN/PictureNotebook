@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/notlarFragment"
-        android:name="com.example.notdefteri.view.NotlarFragment"
+        android:name="com.bilocan.notdefteri.view.NotlarFragment"
         android:label="Notlarım"
         tools:layout="@layout/fragment_notlar">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/notFragment"
-        android:name="com.example.notdefteri.view.NotFragment"
+        android:name="com.bilocan.notdefteri.view.NotFragment"
         android:label="Not"
         tools:layout="@layout/fragment_not">
         <action

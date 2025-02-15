@@ -1,4 +1,4 @@
-package com.example.notdefteri.view
+package com.bilocan.notdefteri.view
 
 import android.Manifest
 import android.content.Intent
@@ -22,10 +22,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.room.Room
-import com.example.notdefteri.databinding.FragmentNotBinding
-import com.example.notdefteri.model.Not
-import com.example.notdefteri.roomdb.NotlarDAO
-import com.example.notdefteri.roomdb.NotlarDatabase
+import com.bilocan.notdefteri.R
+import com.bilocan.notdefteri.databinding.FragmentNotBinding
+import com.bilocan.notdefteri.model.Not
+import com.bilocan.notdefteri.roomdb.NotlarDAO
+import com.bilocan.notdefteri.roomdb.NotlarDatabase
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -98,7 +99,7 @@ class NotFragment : Fragment() {
         }
 
         arguments?.let {
-            val bilgi = NotFragmentArgs.fromBundle(it).bilgi
+            val bilgi = com.bilocan.notdefteri.view.NotFragmentArgs.fromBundle(it).bilgi
 
             if (bilgi == "yeniMi?"){
                 secilenNot = null
@@ -111,7 +112,7 @@ class NotFragment : Fragment() {
                 binding.kaydetButton.isEnabled = true
                 binding.kaydetButton.text = "Güncelle"
 
-                val id = NotFragmentArgs.fromBundle(it).id
+                val id = com.bilocan.notdefteri.view.NotFragmentArgs.fromBundle(it).id
 
                 mDisposable.add(
                     notlarDao.findById(id)
@@ -213,7 +214,7 @@ class NotFragment : Fragment() {
     }
 
     private fun handleResponseForInsertionAndDeletion() {
-        val action = NotFragmentDirections.actionNotFragmentToNotlarFragment()
+        val action = com.bilocan.notdefteri.view.NotFragmentDirections.actionNotFragmentToNotlarFragment()
         Navigation.findNavController(requireView()).navigate(action)
     }
 
@@ -229,9 +230,12 @@ class NotFragment : Fragment() {
     }
 
     private fun galeriAc() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             type = "image/*"
+            addCategory(Intent.CATEGORY_OPENABLE)
+            addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
         }
         try {
             activityResultLauncher.launch(intent)
@@ -246,10 +250,12 @@ class NotFragment : Fragment() {
                 result.data?.data?.let { uri ->
                     try {
                         secilenGorsel = uri
-                        requireActivity().contentResolver.takePersistableUriPermission(
-                            uri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        )
+                        
+                        // Kalıcı izin almak için flags kontrolü
+                        val takeFlags: Int = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                                Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        // Kalıcı izin ver
+                        requireActivity().contentResolver.takePersistableUriPermission(uri, takeFlags)
 
                         // Resmin boyutunu kontrol et
                         val fileSize = getFileSize(uri)

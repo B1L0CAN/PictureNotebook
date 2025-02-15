@@ -1,8 +1,8 @@
-package com.example.notdefteri.view
+package com.bilocan.notdefteri.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.notdefteri.R
+import com.bilocan.notdefteri.R
 
 class MainActivity : AppCompatActivity() {
     

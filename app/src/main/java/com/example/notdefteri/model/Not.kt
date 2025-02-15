@@ -1,4 +1,4 @@
-package com.example.notdefteri.model
+package com.bilocan.notdefteri.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

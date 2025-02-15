@@ -1,4 +1,4 @@
-package com.example.notdefteri.view
+package com.bilocan.notdefteri.view
 
 import android.app.AlertDialog
 import android.content.Context
@@ -11,12 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
-import com.example.notdefteri.adapter.NotlarAdapter
-import com.example.notdefteri.databinding.FragmentNotlarBinding
-import com.example.notdefteri.model.Not
-import com.example.notdefteri.roomdb.NotlarDatabase
+import com.bilocan.notdefteri.R
+import com.bilocan.notdefteri.adapter.NotlarAdapter
+import com.bilocan.notdefteri.databinding.FragmentNotlarBinding
+import com.bilocan.notdefteri.model.Not
+import com.bilocan.notdefteri.roomdb.NotlarDatabase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -46,7 +48,7 @@ class NotlarFragment : Fragment() {
         
         if (isFirstRun) {
             val builder = AlertDialog.Builder(requireContext())
-            val customView = LayoutInflater.from(requireContext()).inflate(com.example.notdefteri.R.layout.dialog_hosgeldiniz, null)
+            val customView = LayoutInflater.from(requireContext()).inflate(com.bilocan.notdefteri.R.layout.dialog_hosgeldiniz, null)
             builder.setView(customView)
             
             val dialog = builder.create()
@@ -57,7 +59,7 @@ class NotlarFragment : Fragment() {
             dialog.setCancelable(false)
             
             // Anladım butonunu bul ve tıklama olayını ayarla
-            customView.findViewById<MaterialButton>(com.example.notdefteri.R.id.anladimButton).setOnClickListener {
+            customView.findViewById<MaterialButton>(com.bilocan.notdefteri.R.id.anladimButton).setOnClickListener {
                 sharedPref.edit().putBoolean("isFirstRun", false).apply()
                 dialog.dismiss()
             }
@@ -90,7 +92,7 @@ class NotlarFragment : Fragment() {
         binding.recyclerView.adapter = notlarAdapter
 
         binding.fab.setOnClickListener {
-            val action = NotlarFragmentDirections.actionNotlarFragmentToNotFragment("yeniMi?", 0)
+            val action = com.bilocan.notdefteri.view.NotlarFragmentDirections.actionNotlarFragmentToNotFragment("yeniMi?", 0)
             Navigation.findNavController(it).navigate(action)
         }
 
