@@ -100,4 +100,4 @@ class NotlarAdapter(private var notlarListesi: List<Not>, private val fragment: 
         notlarListesi = yeniNotlarListesi
         notifyDataSetChanged()
     }
-}
+} 

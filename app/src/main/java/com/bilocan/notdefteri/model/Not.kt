@@ -17,4 +17,4 @@ data class Not(
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-}
+} 

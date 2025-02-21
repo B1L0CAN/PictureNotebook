@@ -21,4 +21,4 @@ interface NotlarDAO {
 
     @Delete
     fun delete(not: Not): Completable
-}
+} 
